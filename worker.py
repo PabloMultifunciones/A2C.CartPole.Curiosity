@@ -19,7 +19,7 @@ def worker(agent, agent_optimizer, icm, icm_optimizer, env):
             state = T.tensor(state, dtype=T.float, device="cpu").unsqueeze(0) # Imagen con forma(210, 160) pasa a ser un tensor torch.Size([1, 210, 160])
 
             action, value, log_prob, hx = agent(state, hx)
-            next_state, reward, done, _ = env.step(action)
+            next_state, reward, done, _, _ = env.step(action)
             auxiliar = next_state
 
             next_state = T.tensor(next_state, dtype=T.float, device="cpu").unsqueeze(0) # Imagen con forma(210, 160) pasa a ser un tensor torch.Size([1, 210, 160])
