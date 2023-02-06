@@ -13,13 +13,12 @@ class ICM(nn.Module):
         self.hidden_layer_1 = nn.Linear(256, 256)
 
         self.phi = nn.Linear(256, 128)
+        self.phi_hat_new = nn.Linear(256, 128)
 
-        self.inverse = nn.Linear(256, 256)
-        
+        self.inverse = nn.Linear(128*2, 256)
         self.pi_logits = nn.Linear(256, n_actions)
 
         self.dense1 = nn.Linear(128+1, 256)
-        self.phi_hat_new = nn.Linear(256, 128)
 
         device = T.device('cpu')
         self.to(device)
