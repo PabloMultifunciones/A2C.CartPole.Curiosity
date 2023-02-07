@@ -37,12 +37,9 @@ class ICM(nn.Module):
 
         inverse = self.inverse(T.cat([phi, phi_new], dim=1))
         pi_logits = self.pi_logits(inverse)
-
         action = action.reshape((action.size()[0], 1))
 
-        forward_input = T.cat([phi, action], dim=1)
-
-        dense = self.dense1(forward_input)
+        dense = self.dense1(T.cat([phi, action], dim=1))
         phi_hat_new = self.phi_hat_new(dense)
 
         return phi_new, pi_logits, phi_hat_new
