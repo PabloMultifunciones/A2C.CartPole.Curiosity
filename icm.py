@@ -46,14 +46,12 @@ class ICM(nn.Module):
 
     def calc_loss(self, states, new_states, actions):
         actions = T.tensor(actions, dtype=T.float)
-
         states = T.tensor([item.cpu().detach().numpy() for item in states])
         new_states = T.tensor([item.cpu().detach().numpy() for item in new_states])
 
         phi_new, pi_logits, phi_hat_new = self.forward(states, new_states, actions)
         
         inverse_loss = nn.CrossEntropyLoss()
-
         L_I = (1 - self.beta) * inverse_loss(pi_logits, actions.to(T.long))
         
         forward_loss = nn.MSELoss()
